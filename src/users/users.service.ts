@@ -9,9 +9,16 @@ export class UsersService {
 
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createCatDto: userDto): Promise<User> {
+  async create(createCatDto: userDto): Promise<any> {
+    
+    
+    if((await this.findByEmail(createCatDto.email)).length > 0)
+    {
+      return { " msg " : " Email Already Exist "};
+    }
     const user = new this.userModel(createCatDto);
     return user.save();
+     
   }
 
   async findAll(): Promise<any> {
@@ -54,6 +61,19 @@ export class UsersService {
     console.log(userEmail);
 
     return this.userModel.findOneAndUpdate({email:userEmail},{email:userProf.email , name:userProf.name , password:userProf.password , confirmPassword:userProf.confirmPassword , phn:userProf.phn , country: userProf.country },{ new : true});
+  }
+
+  async isAuthenticated(userInput):Promise<any> {
+    
+    console.log(userInput);
+    let users  = await this.userModel.find({email:userInput.email , password:userInput.password });
+    console.log(" result = \n" ,users );
+
+    if((await users).length == 0 )
+    return { "statusCode" : 404 ," msg " : " User Not Authenticated " }
+
+    return users[0];
+
   }
 
 
