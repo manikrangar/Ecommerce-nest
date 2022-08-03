@@ -12,7 +12,7 @@ export class UsersController {
     createUser(@Body() user: userDto) {
         console.log(user);
         if (user.confirmPassword != user.password)
-            return { " msg ": " password mismatch " };
+            return { "msg": " password mismatch " };
 
         let result = this.service.create(user);
         return result;
@@ -28,7 +28,7 @@ export class UsersController {
 
         let user = this.service.findById(id);
         if (user == null)
-            return { " msg ": "no record found " }
+            return { "msg": "no record found " }
         else
             return user
     }
@@ -51,7 +51,7 @@ export class UsersController {
         console.log(id);
         console.log("deleated Success");
         if (!this.service.findById(id))
-            return { "msg ": " no Record to delete " }
+            return { "msg": " no Record to delete " }
         else
             return this.service.deleteById(id);
     }
@@ -65,9 +65,12 @@ export class UsersController {
     }
 
     @Post('/update/')
-    updateUserByEmail(@Body() userProf: String) {
+    updateUserByEmail(@Body() userProf: any) {
         console.log("update Info successfully");
         console.log(userProf)
+        if (userProf.confirmPassword != userProf.password)
+            return { "msg": " password mismatch " };
+            
         return this.service.updateByEmail(userProf);
     }
 

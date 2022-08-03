@@ -14,7 +14,7 @@ export class UsersService {
     
     if((await this.findByEmail(createCatDto.email)).length > 0)
     {
-      return { " msg " : " Email Already Exist "};
+      return { "msg" : " Email Already Exist "};
     }
     const user = new this.userModel(createCatDto);
     return user.save();
@@ -24,12 +24,12 @@ export class UsersService {
   async findAll(): Promise<any> {
     let users= this.userModel.find().exec();
     if((await users).length == 0)
-    return {" msg " : "no record found "};
+    return {"msg" : "no record found "};
     else
     return users;
   }
 
-  async findById(id):Promise<User> {
+  async findById(id):Promise<any> {
 
     return this.userModel.findById(id);
   }
@@ -60,6 +60,8 @@ export class UsersService {
     let userEmail = userProf.email;
     console.log(userEmail);
 
+    
+
     return this.userModel.findOneAndUpdate({email:userEmail},{email:userProf.email , name:userProf.name , password:userProf.password , confirmPassword:userProf.confirmPassword , phn:userProf.phn , country: userProf.country },{ new : true});
   }
 
@@ -70,7 +72,7 @@ export class UsersService {
     console.log(" result = \n" ,users );
 
     if((await users).length == 0 )
-    return { "statusCode" : 404 ," msg " : " User Not Authenticated " }
+    return {"msg" : " User Not Authenticated " }
 
     return users[0];
 
