@@ -36,12 +36,12 @@ export class UsersService {
 
   async findByEmail(email):Promise<User[]> {
     console.log(email);
-    return this.userModel.find({email:email});
+    return this.userModel.find({email});
   }
 
   async findByName(name):Promise<User[]> {
     // console.log(name);
-    return this.userModel.find({name:name});
+    return this.userModel.find({name});
   }
 
   async deleteById(id):Promise<any> {
@@ -51,7 +51,7 @@ export class UsersService {
   async deleteByEmail(email):Promise<any> {
     
     // console.log(email);
-    return this.userModel.deleteMany({email:email});
+    return this.userModel.deleteMany({email});
 
   }
 
@@ -60,7 +60,7 @@ export class UsersService {
     let userEmail = userProf.email;
     console.log(userEmail);
 
-    
+
 
     return this.userModel.findOneAndUpdate({email:userEmail},{email:userProf.email , name:userProf.name , password:userProf.password , confirmPassword:userProf.confirmPassword , phn:userProf.phn , country: userProf.country },{ new : true});
   }

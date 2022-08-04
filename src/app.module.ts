@@ -7,9 +7,10 @@ import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
 import { XyzModule } from './xyz/xyz.module';
+import { MailerModule } from './mailer/mailer.module';
 
 @Module({
-  imports: [UsersModule,MongooseModule.forFeature([{ name: User.name, schema: userSchema }]),MongooseModule.forRoot('mongodb+srv://manikrangar:12345678910111213@cluster0.47o6nu7.mongodb.net/?retryWrites=true&w=majority'), XyzModule],
+  imports: [UsersModule,MongooseModule.forFeature([{ name: User.name, schema: userSchema }]),MongooseModule.forRoot('mongodb+srv://manikrangar:12345678910111213@cluster0.47o6nu7.mongodb.net/?retryWrites=true&w=majority'), XyzModule, MailerModule],
   controllers: [AppController, UsersController],
   providers: [AppService,UsersService],
 })
